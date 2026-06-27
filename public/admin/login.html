@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login – Gowri Pickles</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body class="admin-body">
+<div class="admin-login-page">
+  <div class="admin-login-card">
+    <div class="admin-login-logo">
+      <img src="/images/logo.png" alt="Gowri Pickles Admin" width="80" height="80">
+      <h1>Admin Panel</h1>
+      <p>Gowri Pickles Management System</p>
+    </div>
+    <form class="admin-login-form" id="loginForm" onsubmit="doLogin(event)">
+      <div class="form-group">
+        <label class="form-label" for="adminUser">Username</label>
+        <input type="text" id="adminUser" class="form-input" placeholder="admin" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="adminPass">Password</label>
+        <div style="position:relative">
+          <input type="password" id="adminPass" class="form-input" placeholder="••••••••" required autocomplete="current-password" style="padding-right:48px">
+          <button type="button" onclick="togglePass()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--text-muted)" aria-label="Toggle password visibility">👁️</button>
+        </div>
+      </div>
+      <div id="loginError" style="display:none; color:var(--red); font-size:0.85rem; text-align:center; margin-bottom:12px; padding:10px; background:#FDEDEC; border-radius:8px;">
+        ❌ Invalid credentials. Please try again.
+      </div>
+      <button type="submit" class="btn btn-primary login-btn" id="loginBtn">
+        🔐 Login to Dashboard
+      </button>
+    </form>
+    <p style="text-align:center; margin-top:20px; font-size:0.8rem; color:var(--text-muted);">
+      Default: admin / admin123
+    </p>
+    <a href="/" style="display:block; text-align:center; margin-top:12px; font-size:0.85rem; color:var(--text-muted);">← Back to Store</a>
+  </div>
+</div>
+
+<script>
+// Redirect if already logged in
+if (localStorage.getItem('admin_token')) window.location.href = '/admin/dashboard';
+
+function togglePass() {
+  const input = document.getElementById('adminPass');
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+async function doLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('loginError');
+  btn.textContent = '⏳ Logging in...';
+  btn.disabled = true;
+  err.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: document.getElementById('adminUser').value,
+        password: document.getElementById('adminPass').value
+      })
+    });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem('admin_token', data.token);
+      localStorage.setItem('admin_username', data.username);
+      window.location.href = '/admin/dashboard';
+    } else {
+      err.style.display = 'block';
+      btn.textContent = '🔐 Login to Dashboard';
+      btn.disabled = false;
+      document.getElementById('adminPass').style.animation = 'shake 0.4s ease';
+      setTimeout(() => document.getElementById('adminPass').style.animation = '', 400);
+    }
+  } catch {
+    err.style.display = 'block';
+    err.textContent = '❌ Server error. Please try again.';
+    btn.textContent = '🔐 Login to Dashboard';
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>

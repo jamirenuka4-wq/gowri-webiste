@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Placed! – Gowri Pickles</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body style="background: var(--cream);">
+<nav class="navbar scrolled">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo.png" alt="Gowri Pickles" width="48" height="48">
+      <div class="nav-logo-text">
+        <span class="brand-name">Gowri Pickles</span>
+        <span class="brand-tagline">Pure • Traditional • Authentic</span>
+      </div>
+    </a>
+  </div>
+</nav>
+
+<div class="success-page">
+  <div class="success-card">
+    <div class="success-icon">🎉</div>
+    <h1>Order Placed!</h1>
+    <p class="order-num">Your order number: <strong id="orderNum">–</strong></p>
+
+    <div class="success-details" id="orderDetails">
+      <div class="success-detail-row">
+        <span class="key">👤 Customer</span>
+        <span class="val" id="detailName">–</span>
+      </div>
+      <div class="success-detail-row">
+        <span class="key">📍 Delivery To</span>
+        <span class="val" id="detailCity">–</span>
+      </div>
+      <div class="success-detail-row">
+        <span class="key">💳 Payment</span>
+        <span class="val" id="detailPayment">–</span>
+      </div>
+      <div class="success-detail-row">
+        <span class="key">💰 Total Paid</span>
+        <span class="val" id="detailTotal" style="color:var(--red);">–</span>
+      </div>
+      <div class="success-detail-row">
+        <span class="key">🚚 Estimated Delivery</span>
+        <span class="val">3–5 business days</span>
+      </div>
+    </div>
+
+    <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:28px;">
+      Thank you for ordering from <strong>Gowri Pickles</strong>! 🌶️<br>
+      You'll receive a confirmation via WhatsApp/SMS shortly.
+      We'll dispatch your order within 24 hours.
+    </p>
+
+    <div class="success-actions">
+      <a href="/" class="btn btn-primary btn-lg" id="continueShopBtn">🛒 Shop More</a>
+      <a href="https://wa.me/919876543210" target="_blank" class="btn btn-green btn-lg" id="trackOrderBtn">
+        📱 Track via WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<div id="confettiContainer" style="position:fixed;inset:0;pointer-events:none;z-index:9999;"></div>
+
+<script>
+function launchConfetti() {
+  const colors = ['#C0392B','#F39C12','#27AE60','#E67E22','#F7DC6F','#922B21'];
+  const container = document.getElementById('confettiContainer');
+  for (let i = 0; i < 80; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const size = Math.random() * 12 + 6;
+    piece.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${size}px; height: ${size}px;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      --drift: ${(Math.random() - 0.5) * 200}px;
+      animation-duration: ${2 + Math.random() * 3}s;
+      animation-delay: ${Math.random() * 1.5}s;
+    `;
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.innerHTML = '', 6000);
+}
+
+// Load order data
+const order = JSON.parse(localStorage.getItem('gowri_last_order') || '{}');
+if (order.order_number) {
+  document.getElementById('orderNum').textContent = order.order_number;
+  document.getElementById('detailName').textContent = order.name || '–';
+  document.getElementById('detailCity').textContent = order.city || '–';
+  document.getElementById('detailPayment').textContent = order.payment || 'COD';
+  document.getElementById('detailTotal').textContent = `₹${order.total?.toFixed(0) || '–'}`;
+}
+
+launchConfetti();
+</script>
+</body>
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gowri Pickles – Authentic Homemade Indian Pickles | Buy Online</title>
+  <meta name="description" content="Buy authentic homemade Indian pickles online from Gowri Pickles. Traditional Andhra-style mango pickle, lemon pickle, chilli pickle & mixed pickle. No preservatives. Free delivery above ₹500.">
+  <meta name="keywords" content="Gowri Pickles, Indian pickles online, mango pickle, lemon pickle, chilli pickle, Andhra pickle, buy pickle online, homemade pickle, authentic Indian achar">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Gowri Pickles">
+  <link rel="canonical" href="https://www.gowripickles.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gowri Pickles – Authentic Homemade Indian Pickles Online">
+  <meta property="og:description" content="Traditional Andhra-style pickles made fresh with authentic spices. Free delivery above ₹500.">
+  <meta property="og:url" content="https://www.gowripickles.com/">
+  <meta property="og:image" content="https://www.gowripickles.com/images/mango_pickle.png">
+  <meta property="og:site_name" content="Gowri Pickles">
+  <meta property="og:locale" content="en_IN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gowri Pickles – Authentic Homemade Indian Pickles">
+  <meta name="twitter:description" content="Buy authentic Indian pickles online. Traditional recipes, fresh ingredients.">
+  <meta name="twitter:image" content="https://www.gowripickles.com/images/mango_pickle.png">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"Gowri Pickles","url":"https://www.gowripickles.com","logo":"https://www.gowripickles.com/images/logo.png","description":"Authentic homemade Indian pickles made with traditional recipes.","telephone":"+91-98765-43210","email":"orders@gowripickles.com","address":{"@type":"PostalAddress","streetAddress":"123 Pickle Lane","addressLocality":"Hyderabad","addressRegion":"Telangana","postalCode":"500001","addressCountry":"IN"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"Gowri Pickles","url":"https://www.gowripickles.com","potentialAction":{"@type":"SearchAction","target":"https://www.gowripickles.com/?search={search_term_string}","query-input":"required name=search_term_string"}}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+  <style>
+    /* ===== Page-specific overrides ===== */
+    .hero { min-height: 100vh; }
+
+    /* Diagonal cut between hero and features */
+    .hero-wave {
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 80px;
+      background: #C0392B;
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    /* Trust badges */
+    .trust-bar {
+      background: white;
+      border-bottom: 1px solid #F0E6D3;
+      padding: 14px 0;
+      position: sticky;
+      top: 72px;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(44,24,16,0.06);
+    }
+    .trust-items {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-body);
+    }
+    .trust-icon { font-size: 1.1rem; }
+
+    /* Section dividers */
+    .wavy-divider {
+      height: 60px;
+      background: var(--cream-dark);
+      clip-path: ellipse(55% 100% at 50% 0%);
+      margin-top: -1px;
+    }
+    .wavy-divider.white {
+      background: white;
+    }
+
+    /* Bestsellers badge on product section */
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .eyebrow-line {
+      height: 2px;
+      width: 40px;
+      background: var(--yellow);
+      border-radius: 2px;
+    }
+    .eyebrow-text {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--yellow-dark);
+    }
+
+    /* Steps section */
+    .steps-section {
+      padding: 80px 0;
+      background: white;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: calc(12.5% + 24px);
+      right: calc(12.5% + 24px);
+      height: 2px;
+      background: linear-gradient(to right, var(--yellow), var(--red));
+      z-index: 0;
+    }
+    .step-card {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--grad-hero);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 8px 24px rgba(192,57,43,0.3);
+    }
+    .step-title { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+    .step-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    @media (max-width:768px) {
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid::before { display: none; }
+      .trust-items { gap: 16px; }
+      .trust-item { font-size: 0.75rem; }
+    }
+    @media (max-width:480px) {
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== PRELOADER ===== -->
+<div id="preloader" style="position:fixed;inset:0;background:var(--cream);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity 0.5s ease;">
+  <img src="/images/logo.png" alt="Gowri Pickles" width="80" height="80" style="border-radius:50%;animation:pulse 1s ease infinite;">
+  <div style="font-family:var(--font-heading);font-size:1.4rem;color:var(--red);font-weight:700;">Gowri Pickles</div>
+  <div style="width:160px;height:3px;background:var(--border);border-radius:3px;overflow:hidden;">
+    <div id="loaderBar" style="height:100%;background:var(--grad-hero);width:0;transition:width 0.8s ease;border-radius:3px;"></div>
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="Gowri Pickles Home">
+      <img src="/images/logo.png" alt="Gowri Pickles Logo" width="48" height="48" onerror="this.style.display='none'">
+      <div class="nav-logo-text">
+        <span class="brand-name">Gowri Pickles</span>
+        <span class="brand-tagline">Pure • Traditional • Authentic</span>
+      </div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="/" aria-current="page">Home</a>
+      <a href="#products">Products</a>
+      <a href="#categories">Categories</a>
+      <a href="#about">About Us</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="/cart" class="cart-icon-btn" id="cartIconBtn" aria-label="Shopping Cart">
+        🛒 Cart
+        <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/">🏠 Home</a>
+  <a href="#products" onclick="document.getElementById('mobileMenu').classList.remove('open')">🥫 Products</a>
+  <a href="#categories" onclick="document.getElementById('mobileMenu').classList.remove('open')">🌿 Categories</a>
+  <a href="#about" onclick="document.getElementById('mobileMenu').classList.remove('open')">🏺 About Us</a>
+  <a href="#reviews" onclick="document.getElementById('mobileMenu').classList.remove('open')">⭐ Reviews</a>
+  <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">📞 Contact</a>
+  <a href="/cart" style="background:var(--red);color:white;text-align:center;border-radius:50px;margin-top:8px;">🛒 View Cart (<span id="mobileCartCount">0</span>)</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home" aria-label="Hero Section">
+  <!-- Animated gradient background -->
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#7B1818 0%,#C0392B 35%,#E67E22 70%,#F39C12 100%);"></div>
+
+  <!-- Decorative circles -->
+  <div style="position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-150px;left:-150px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
+  <div style="position:absolute;top:30%;left:40%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.03);pointer-events:none;"></div>
+
+  <!-- Spice particles -->
+  <div class="hero-spices" id="heroSpices" aria-hidden="true"></div>
+
+  <div class="container" style="position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding-top:40px;padding-bottom:60px;">
+    <!-- Left: Content -->
+    <div class="hero-content">
+      <div class="hero-badge" style="animation:slide-down 0.6s ease both;">
+        <span class="dot"></span>
+        🌶️ Crafted with Love & Tradition Since 1995
+      </div>
+      <h1 style="animation:slide-up 0.7s ease 0.1s both;">
+        India's Most
+        <span class="highlight">Authentic Pickles</span>
+        At Your Door!
+      </h1>
+      <p class="hero-desc" style="animation:slide-up 0.7s ease 0.2s both;">
+        From our kitchen to your table — experience bold flavors of traditional Andhra-style pickles
+        made with hand-picked ingredients, time-tested recipes & zero artificial preservatives.
+      </p>
+      <div class="hero-actions" style="animation:slide-up 0.7s ease 0.3s both;">
+        <a href="#products" class="btn btn-lg" style="background:white;color:var(--red);font-weight:700;box-shadow:0 8px 30px rgba(0,0,0,0.2);">
+          🥫 Shop Now
+        </a>
+        <a href="#about" class="btn btn-lg" style="background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.5);backdrop-filter:blur(4px);">
+          🏺 Our Story
+        </a>
+      </div>
+      <div class="hero-stats" style="animation:slide-up 0.7s ease 0.4s both;">
+        <div class="hero-stat"><div class="number">10K+</div><div class="label">Happy Customers</div></div>
+        <div class="hero-stat"><div class="number">25+</div><div class="label">Pickle Varieties</div></div>
+        <div class="hero-stat"><div class="number">30+</div><div class="label">Years of Tradition</div></div>
+      </div>
+    </div>
+    <!-- Right: Product Image -->
+    <div style="animation:float 6s ease-in-out infinite, slide-up 0.8s ease 0.2s both;display:flex;justify-content:center;align-items:center;">
+      <div style="position:relative;">
+        <!-- Glow circle behind image -->
+        <div style="position:absolute;inset:-20px;border-radius:50%;background:rgba(255,255,255,0.1);animation:pulse 3s ease infinite;"></div>
+        <img src="/images/mixed_pickle.png" alt="Authentic Indian Pickles collection by Gowri Pickles"
+             style="width:100%;max-width:480px;border-radius:24px;box-shadow:0 40px 80px rgba(0,0,0,0.4);position:relative;z-index:1;"
+             onerror="this.src='/images/mango_pickle.png'">
+        <!-- Floating tags -->
+        <div style="position:absolute;top:20px;left:-20px;background:white;border-radius:12px;padding:10px 16px;box-shadow:0 8px 24px rgba(0,0,0,0.15);font-family:var(--font-ui);font-size:0.82rem;font-weight:700;color:var(--green-dark);animation:float 4s ease-in-out infinite;">
+          ✅ 100% Natural
+        </div>
+        <div style="position:absolute;bottom:40px;right:-20px;background:var(--yellow);border-radius:12px;padding:10px 16px;box-shadow:0 8px 24px rgba(243,156,18,0.4);font-family:var(--font-ui);font-size:0.82rem;font-weight:700;color:var(--text-dark);animation:float 4s ease-in-out 1s infinite;">
+          🌶️ Spice Guaranteed!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="scroll-wheel"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ===== TRUST BAR ===== -->
+<div class="trust-bar" aria-label="Trust signals">
+  <div class="container">
+    <div class="trust-items">
+      <div class="trust-item"><span class="trust-icon">🚚</span>Free Delivery Above ₹500</div>
+      <div class="trust-item" style="color:var(--border)">|</div>
+      <div class="trust-item"><span class="trust-icon">🌿</span>100% Natural Ingredients</div>
+      <div class="trust-item" style="color:var(--border)">|</div>
+      <div class="trust-item"><span class="trust-icon">🔒</span>Secure Payments</div>
+      <div class="trust-item" style="color:var(--border)">|</div>
+      <div class="trust-item"><span class="trust-icon">📦</span>Hygienic Packaging</div>
+      <div class="trust-item" style="color:var(--border)">|</div>
+      <div class="trust-item"><span class="trust-icon">⭐</span>4.8 Star Rating</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FEATURES TICKER ===== -->
+<div class="features-strip" aria-label="Features" style="overflow:hidden;">
+  <div class="features-ticker">
+    <div class="feature-item"><span class="icon">🚚</span>Free Delivery Above ₹500</div>
+    <div class="feature-item"><span class="icon">🌿</span>100% Natural Ingredients</div>
+    <div class="feature-item"><span class="icon">🏺</span>Traditional Recipes Since 1995</div>
+    <div class="feature-item"><span class="icon">⭐</span>4.8 Star Rating</div>
+    <div class="feature-item"><span class="icon">🔒</span>Secure Payments</div>
+    <div class="feature-item"><span class="icon">📦</span>Hygienic Packaging</div>
+    <div class="feature-item"><span class="icon">💯</span>No Artificial Preservatives</div>
+    <div class="feature-item"><span class="icon">🏆</span>Award-Winning Quality</div>
+    <div class="feature-item"><span class="icon">🚚</span>Free Delivery Above ₹500</div>
+    <div class="feature-item"><span class="icon">🌿</span>100% Natural Ingredients</div>
+    <div class="feature-item"><span class="icon">🏺</span>Traditional Recipes Since 1995</div>
+    <div class="feature-item"><span class="icon">⭐</span>4.8 Star Rating</div>
+    <div class="feature-item"><span class="icon">🔒</span>Secure Payments</div>
+    <div class="feature-item"><span class="icon">📦</span>Hygienic Packaging</div>
+    <div class="feature-item"><span class="icon">💯</span>No Artificial Preservatives</div>
+    <div class="feature-item"><span class="icon">🏆</span>Award-Winning Quality</div>
+  </div>
+</div>
+
+<!-- ===== CATEGORIES ===== -->
+<section class="categories-section" id="categories" aria-labelledby="cat-heading" style="background:white;">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Browse Our Range</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" id="cat-heading">Browse by <span>Category</span></h2>
+      <p class="section-subtitle">From fiery hot to mildly tangy — a pickle for every palate</p>
+    </div>
+    <div class="categories-grid reveal">
+      <div class="category-card mango" onclick="filterCategory('Mango')" tabindex="0" role="button" aria-label="Mango Pickles">
+        <div class="category-icon">🥭</div>
+        <div class="category-name">Mango</div>
+        <div class="category-count" id="countMango">Loading...</div>
+      </div>
+      <div class="category-card lemon" onclick="filterCategory('Lemon')" tabindex="0" role="button" aria-label="Lemon Pickles">
+        <div class="category-icon">🍋</div>
+        <div class="category-name">Lemon</div>
+        <div class="category-count" id="countLemon">Loading...</div>
+      </div>
+      <div class="category-card chilli" onclick="filterCategory('Chilli')" tabindex="0" role="button" aria-label="Chilli Pickles">
+        <div class="category-icon">🌶️</div>
+        <div class="category-name">Chilli</div>
+        <div class="category-count" id="countChilli">Loading...</div>
+      </div>
+      <div class="category-card mixed" onclick="filterCategory('Mixed')" tabindex="0" role="button" aria-label="Mixed Pickles">
+        <div class="category-icon">🥗</div>
+        <div class="category-name">Mixed</div>
+        <div class="category-count" id="countMixed">Loading...</div>
+      </div>
+      <div class="category-card special" onclick="filterCategory('Special')" tabindex="0" role="button" aria-label="Special Pickles">
+        <div class="category-icon">✨</div>
+        <div class="category-name">Special</div>
+        <div class="category-count" id="countSpecial">Loading...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="steps-section" aria-labelledby="steps-heading">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:50px;">
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Simple as 1-2-3</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" id="steps-heading">How to <span>Order</span></h2>
+    </div>
+    <div class="steps-grid reveal">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-title">Browse & Choose</div>
+        <div class="step-desc">Explore our wide range of authentic pickles and choose your favorites</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-title">Add to Cart</div>
+        <div class="step-desc">Add items to cart, apply promo codes for extra discounts</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-title">Checkout Securely</div>
+        <div class="step-desc">Fill in your address and choose from multiple payment options</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-title">Enjoy Delivery!</div>
+        <div class="step-desc">Your pickles arrive fresh in 3–5 days in secure, leak-proof packaging</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRODUCTS SECTION ===== -->
+<section class="products-section" id="products" aria-labelledby="prod-heading" style="background:var(--cream);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Fresh from Our Kitchen</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" id="prod-heading">Our <span>Pickle Collection</span></h2>
+      <p class="section-subtitle">Handcrafted with love — every jar tells a story of tradition</p>
+    </div>
+    <div class="filter-bar reveal">
+      <div class="filter-tabs" id="filterTabs" role="tablist">
+        <button class="filter-tab active" data-category="All" role="tab" aria-selected="true" id="tabAll">All Pickles</button>
+        <button class="filter-tab" data-category="Mango" role="tab" id="tabMango">🥭 Mango</button>
+        <button class="filter-tab" data-category="Lemon" role="tab" id="tabLemon">🍋 Lemon</button>
+        <button class="filter-tab" data-category="Chilli" role="tab" id="tabChilli">🌶️ Chilli</button>
+        <button class="filter-tab" data-category="Mixed" role="tab" id="tabMixed">🥗 Mixed</button>
+        <button class="filter-tab" data-category="Special" role="tab" id="tabSpecial">✨ Special</button>
+      </div>
+      <div class="search-box" style="position:relative;">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="searchInput" placeholder="Search pickles..." aria-label="Search products" autocomplete="off">
+        <div class="search-suggestions" id="searchSuggestions" role="listbox"></div>
+      </div>
+    </div>
+    <div class="products-grid" id="productsGrid" aria-live="polite">
+      <!-- Skeleton loaders while loading -->
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line long"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line long"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line long"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line long"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line long"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line long"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line long"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line long"></div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:48px;" id="loadMoreRow" class="reveal">
+      <button class="btn btn-secondary btn-lg" id="loadMoreBtn" onclick="loadMoreProducts()" style="display:none;">
+        Load More Pickles ↓
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="brand-marquee" aria-hidden="true">
+  <div class="marquee-inner">
+    <div class="marquee-item"><span class="marquee-dot">🏆</span>Award Winning Quality</div>
+    <div class="marquee-item"><span class="marquee-dot">🌿</span>Farm Fresh Ingredients</div>
+    <div class="marquee-item"><span class="marquee-dot">🧂</span>No Artificial Preservatives</div>
+    <div class="marquee-item"><span class="marquee-dot">👵</span>Grandmother's Recipe</div>
+    <div class="marquee-item"><span class="marquee-dot">📦</span>Pan India Delivery</div>
+    <div class="marquee-item"><span class="marquee-dot">💛</span>Made with Love</div>
+    <div class="marquee-item"><span class="marquee-dot">🏆</span>Award Winning Quality</div>
+    <div class="marquee-item"><span class="marquee-dot">🌿</span>Farm Fresh Ingredients</div>
+    <div class="marquee-item"><span class="marquee-dot">🧂</span>No Artificial Preservatives</div>
+    <div class="marquee-item"><span class="marquee-dot">👵</span>Grandmother's Recipe</div>
+    <div class="marquee-item"><span class="marquee-dot">📦</span>Pan India Delivery</div>
+    <div class="marquee-item"><span class="marquee-dot">💛</span>Made with Love</div>
+  </div>
+</div>
+
+<!-- ===== ABOUT SECTION ===== -->
+<section class="about-section" id="about" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal-left">
+        <img src="/images/mango_pickle.png" alt="Traditional Indian pickle making process at Gowri Pickles" loading="lazy">
+        <div class="about-image-frame" aria-hidden="true"></div>
+        <div class="about-years-badge" aria-label="30 years of tradition">
+          <span class="years">30</span>
+          <span class="text">YEARS OF<br>TRADITION</span>
+        </div>
+      </div>
+      <div class="about-content reveal-right">
+        <div class="section-eyebrow" style="justify-content:flex-start;">
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-text">Our Story</span>
+        </div>
+        <h2 id="about-heading" style="font-size:2.4rem;margin-bottom:20px;">A Labour of <span style="color:var(--red)">Love</span> and Tradition</h2>
+        <p>Born in a small kitchen in Andhra Pradesh in 1995, Gowri Pickles started as a passion project by our founder, Mrs. Gowri Devi, who wanted to share her mother's treasured pickle recipes with the world.</p>
+        <p>What began as a family tradition has blossomed into a beloved brand trusted by over 10,000 families across India. Every jar we make carries the same love, care, and authentic spices that our grandmother used decades ago.</p>
+        <p>We source raw mangoes from local Andhra Pradesh farms, chillies from Guntur — the spice capital of India — and use only cold-pressed sesame oil. <strong>No shortcuts, no artificial colors, no preservatives — ever.</strong></p>
+        <div class="about-features">
+          <div class="about-feature"><div class="feat-icon">🌿</div><div><div class="feat-title">100% Natural</div><div class="feat-desc">No artificial additives</div></div></div>
+          <div class="about-feature"><div class="feat-icon">🏺</div><div><div class="feat-title">Traditional Recipe</div><div class="feat-desc">Passed down through generations</div></div></div>
+          <div class="about-feature"><div class="feat-icon">📦</div><div><div class="feat-title">Safe Packaging</div><div class="feat-desc">Food-grade, leak-proof containers</div></div></div>
+          <div class="about-feature"><div class="feat-icon">🚚</div><div><div class="feat-title">Fast Delivery</div><div class="feat-desc">Pan India in 3–5 days</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS SECTION ===== -->
+<section class="reviews-section" id="reviews" aria-labelledby="review-heading">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Customer Love</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" id="review-heading">What Our <span>Customers Say</span></h2>
+      <p class="section-subtitle">10,000+ happy families trust Gowri Pickles every month!</p>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+    <!-- Overall rating bar -->
+    <div class="reveal" style="background:white;border-radius:20px;padding:32px;margin-top:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;box-shadow:var(--shadow-card);">
+      <div style="text-align:center;">
+        <div style="font-size:4rem;font-weight:900;color:var(--text-dark);font-family:var(--font-heading);line-height:1;">4.8</div>
+        <div style="color:var(--yellow);font-size:1.4rem;">★★★★★</div>
+        <div style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;">Overall Rating</div>
+      </div>
+      <div style="flex:1;min-width:200px;max-width:320px;">
+        ${[5,4,3,2,1].map(n => `
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <span style="font-size:0.82rem;font-weight:600;width:12px;">${n}</span>
+          <span style="color:var(--yellow);font-size:0.8rem;">★</span>
+          <div style="flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+            <div style="height:100%;background:var(--yellow);border-radius:4px;width:${n===5?'78%':n===4?'15%':n===3?'5%':n===2?'1%':'1%'};"></div>
+          </div>
+          <span style="font-size:0.78rem;color:var(--text-muted);width:30px;">${n===5?'78%':n===4?'15%':n===3?'5%':n===2?'1%':'1%'}</span>
+        </div>`).join('')}
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:2rem;font-weight:700;color:var(--text-dark);font-family:var(--font-heading);">10K+</div>
+        <div style="font-size:0.85rem;color:var(--text-muted);">Happy Customers</div>
+        <div style="font-size:2rem;font-weight:700;color:var(--text-dark);font-family:var(--font-heading);margin-top:12px;">98%</div>
+        <div style="font-size:0.85rem;color:var(--text-muted);">Would Recommend</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="newsletter-section" aria-labelledby="newsletter-heading">
+  <div class="container newsletter-content">
+    <div class="reveal">
+      <div class="section-eyebrow" style="justify-content:center;">
+        <div class="eyebrow-line" style="background:rgba(255,255,255,0.4)"></div>
+        <span class="eyebrow-text" style="color:rgba(255,255,255,0.8)">Stay Updated</span>
+        <div class="eyebrow-line" style="background:rgba(255,255,255,0.4)"></div>
+      </div>
+      <h2 id="newsletter-heading">Get Exclusive Pickle Deals! 🎁</h2>
+      <p>Subscribe & get <strong>15% OFF</strong> your first order + pickle recipes, seasonal offers & more!</p>
+      <form class="newsletter-form" id="newsletterForm" onsubmit="subscribeNewsletter(event)">
+        <input type="email" id="newsletterEmail" placeholder="Enter your email address" required aria-label="Email for newsletter">
+        <button type="submit" class="btn btn-lg" style="background:white;color:var(--red);font-weight:700;" id="subscribeBtn">🎁 Subscribe Free!</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" style="padding:80px 0;background:white;" aria-labelledby="contact-heading">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:50px;">
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Get In Touch</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" id="contact-heading">We'd Love to <span>Hear From You</span></h2>
+      <p class="section-subtitle">Have a question about our pickles? We're always here to help!</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;" class="reveal">
+      <div style="background:var(--cream);border-radius:20px;padding:36px 24px;text-align:center;border:1px solid var(--border);transition:all 0.3s ease;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 40px rgba(192,57,43,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="width:64px;height:64px;background:var(--grad-hero);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;">📞</div>
+        <h3 style="font-size:1.05rem;margin-bottom:8px;">Call Us</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem;font-weight:600;">+91 98765 43210</p>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-top:4px;">Mon–Sat, 9AM–7PM</p>
+      </div>
+      <div style="background:var(--cream);border-radius:20px;padding:36px 24px;text-align:center;border:1px solid var(--border);transition:all 0.3s ease;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 40px rgba(192,57,43,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="width:64px;height:64px;background:var(--grad-hero);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;">📧</div>
+        <h3 style="font-size:1.05rem;margin-bottom:8px;">Email Us</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem;font-weight:600;">orders@gowripickles.com</p>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-top:4px;">Reply within 24 hours</p>
+      </div>
+      <div style="background:var(--cream);border-radius:20px;padding:36px 24px;text-align:center;border:1px solid var(--border);transition:all 0.3s ease;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 40px rgba(192,57,43,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="width:64px;height:64px;background:#25D366;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;">💬</div>
+        <h3 style="font-size:1.05rem;margin-bottom:8px;">WhatsApp</h3>
+        <a href="https://wa.me/919876543210?text=Hi!%20I%20want%20to%20order%20Gowri%20Pickles" target="_blank" style="color:var(--green);font-weight:700;font-size:0.9rem;text-decoration:none;">Chat Now →</a>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-top:4px;">Instant response</p>
+      </div>
+      <div style="background:var(--cream);border-radius:20px;padding:36px 24px;text-align:center;border:1px solid var(--border);transition:all 0.3s ease;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 40px rgba(192,57,43,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="width:64px;height:64px;background:var(--grad-hero);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;">📍</div>
+        <h3 style="font-size:1.05rem;margin-bottom:8px;">Visit Us</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem;font-weight:600;">123 Pickle Lane, Hyderabad</p>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-top:4px;">Telangana – 500001</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" id="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">
+          <img src="/images/logo.png" alt="Gowri Pickles" width="48" height="48" onerror="this.style.display='none'">
+          <span class="brand-name">Gowri Pickles</span>
+        </div>
+        <p>Crafting authentic Indian pickles with love and tradition since 1995. Our pickles bring the taste of home to your table, wherever you are in India.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">📘</a>
+          <a href="#" class="social-link" aria-label="Instagram">📷</a>
+          <a href="#" class="social-link" aria-label="YouTube">📺</a>
+          <a href="#" class="social-link" aria-label="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="#products">All Products</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul>
+          <li><a href="#products" onclick="filterCategory('Mango')">🥭 Mango Pickles</a></li>
+          <li><a href="#products" onclick="filterCategory('Lemon')">🍋 Lemon Pickles</a></li>
+          <li><a href="#products" onclick="filterCategory('Chilli')">🌶️ Chilli Pickles</a></li>
+          <li><a href="#products" onclick="filterCategory('Mixed')">🥗 Mixed Pickles</a></li>
+          <li><a href="#products" onclick="filterCategory('Special')">✨ Special Pickles</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <div class="footer-contact-item"><span class="icon">📍</span><span>123 Pickle Lane, Hyderabad, Telangana – 500001</span></div>
+        <div class="footer-contact-item"><span class="icon">📞</span><span>+91 98765 43210</span></div>
+        <div class="footer-contact-item"><span class="icon">📧</span><span>orders@gowripickles.com</span></div>
+        <div class="footer-contact-item"><span class="icon">⏰</span><span>Mon–Sat: 9AM – 7PM IST</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Gowri Pickles. All rights reserved. Made with ❤️ in India 🇮🇳</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Shipping Policy</a>
+        <a href="/admin">Admin</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/919876543210?text=Hi!%20I%20want%20to%20order%20Gowri%20Pickles" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- Toast -->
+<div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true"></div>
+
+<script src="/js/main.js"></script>
+<script>
+// Preloader
+window.addEventListener('load', () => {
+  document.getElementById('loaderBar').style.width = '100%';
+  setTimeout(() => {
+    const pl = document.getElementById('preloader');
+    pl.style.opacity = '0';
+    setTimeout(() => pl.style.display = 'none', 500);
+  }, 600);
+});
+</script>
+</body>
+</html>

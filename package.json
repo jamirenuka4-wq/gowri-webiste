@@ -1,0 +1,13 @@
+{
+  "name": "gowri-pickles",
+  "version": "1.0.0",
+  "description": "Gowri Pickles – Authentic Indian Pickle E-Commerce Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["pickles", "indian", "ecommerce", "gowri"],
+  "author": "Gowri Pickles",
+  "license": "ISC"
+}

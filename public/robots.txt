@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /product/
+Disallow: /admin/
+Disallow: /admin/dashboard
+Disallow: /cart
+Disallow: /checkout
+Disallow: /order-success
+Disallow: /api/
+
+Sitemap: https://www.gowripickles.com/sitemap.xml

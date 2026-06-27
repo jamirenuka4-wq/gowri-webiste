@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout – Gowri Pickles</title>
+  <meta name="description" content="Complete your Gowri Pickles order. Fast, secure checkout with multiple payment options.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body>
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo.png" alt="Gowri Pickles" width="48" height="48">
+      <div class="nav-logo-text">
+        <span class="brand-name">Gowri Pickles</span>
+        <span class="brand-tagline">Pure • Traditional • Authentic</span>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <a href="/cart" class="cart-icon-btn" aria-label="Back to Cart">← Back to Cart</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Progress Bar -->
+<div style="background:white; border-bottom:1px solid var(--border); padding:16px 0; margin-top:72px;">
+  <div class="container">
+    <div style="display:flex; align-items:center; justify-content:center; gap:8px; font-family:var(--font-ui); font-size:0.85rem;">
+      <span style="background:var(--red);color:white;padding:4px 16px;border-radius:50px;font-weight:600;">1 Cart</span>
+      <span style="color:var(--text-muted)">→</span>
+      <span style="background:var(--red);color:white;padding:4px 16px;border-radius:50px;font-weight:600;">2 Checkout</span>
+      <span style="color:var(--text-muted)">→</span>
+      <span style="background:var(--border);color:var(--text-muted);padding:4px 16px;border-radius:50px;">3 Confirm</span>
+    </div>
+  </div>
+</div>
+
+<div style="padding:40px 0 80px; background:var(--cream); min-height:100vh;">
+  <div class="container">
+    <div class="checkout-layout">
+      <!-- Form -->
+      <div>
+        <div class="checkout-form-section">
+          <h2 class="form-section-title">📍 Delivery Address</h2>
+          <form id="checkoutForm" onsubmit="placeOrder(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="firstName">First Name <span>*</span></label>
+                <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Priya" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lastName">Last Name <span>*</span></label>
+                <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Sharma" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address <span>*</span></label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="priya@gmail.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone Number <span>*</span></label>
+                <input type="tel" id="phone" name="phone" class="form-input" placeholder="+91 98765 43210" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="address">Full Address <span>*</span></label>
+              <textarea id="address" name="address" class="form-textarea" placeholder="House No, Street, Area, Landmark..." required rows="3"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="city">City <span>*</span></label>
+                <input type="text" id="city" name="city" class="form-input" placeholder="Hyderabad" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="state">State <span>*</span></label>
+                <select id="state" name="state" class="form-select" required>
+                  <option value="">Select State</option>
+                  <option>Andhra Pradesh</option><option>Telangana</option><option>Tamil Nadu</option>
+                  <option>Karnataka</option><option>Kerala</option><option>Maharashtra</option>
+                  <option>Delhi</option><option>Uttar Pradesh</option><option>West Bengal</option>
+                  <option>Rajasthan</option><option>Gujarat</option><option>Madhya Pradesh</option>
+                  <option>Punjab</option><option>Haryana</option><option>Bihar</option>
+                  <option>Odisha</option><option>Assam</option><option>Jharkhand</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="pincode">Pincode <span>*</span></label>
+                <input type="text" id="pincode" name="pincode" class="form-input" placeholder="500001" maxlength="6" required>
+              </div>
+            </div>
+
+            <h2 class="form-section-title" style="margin-top:16px">💳 Payment Method</h2>
+            <div class="payment-options" id="paymentOptions">
+              <label class="payment-option selected" id="payOptCOD" onclick="selectPayment('COD')">
+                <input type="radio" name="payment" value="COD" checked> 💵 Cash on Delivery
+              </label>
+              <label class="payment-option" id="payOptUPI" onclick="selectPayment('UPI')">
+                <input type="radio" name="payment" value="UPI"> 📱 UPI / GPay
+              </label>
+              <label class="payment-option" id="payOptNB" onclick="selectPayment('NetBanking')">
+                <input type="radio" name="payment" value="NetBanking"> 🏦 Net Banking
+              </label>
+              <label class="payment-option" id="payOptCard" onclick="selectPayment('Card')">
+                <input type="radio" name="payment" value="Card"> 💳 Debit/Credit Card
+              </label>
+            </div>
+
+            <div class="form-group" style="margin-top:24px">
+              <label class="form-label" for="orderNotes">Order Notes (Optional)</label>
+              <textarea id="orderNotes" class="form-textarea" placeholder="Any special instructions for delivery..." rows="2"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary place-order-btn" id="placeOrderBtn">
+              🛒 Place Order
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div>
+        <div class="order-summary" id="orderSummary">
+          <h3>Order Summary</h3>
+          <div class="checkout-products" id="checkoutProducts"></div>
+          <div class="summary-row"><span>Subtotal</span><span class="val" id="sumSubtotal">₹0</span></div>
+          <div class="summary-row"><span>Shipping</span><span class="val" id="sumShipping">₹60</span></div>
+          <div class="summary-row total"><span>Total</span><span id="sumTotal">₹0</span></div>
+          <div style="margin-top:20px; font-size:0.82rem; color:var(--text-muted); text-align:center; line-height:1.6;">
+            🔒 256-bit SSL Encrypted &nbsp;|&nbsp; 📦 Hygienic Packaging<br>
+            🚚 Delivered in 3–5 business days
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<div id="loadingOverlay" style="display:none; position:fixed; inset:0; background:rgba(255,255,255,0.9); z-index:9999; align-items:center; justify-content:center; flex-direction:column; gap:16px;">
+  <div class="spinner" style="width:56px;height:56px;border-width:5px;"></div>
+  <div style="font-family:var(--font-ui); font-weight:600; color:var(--text-dark);">Placing your order... 🥫</div>
+</div>
+
+<script>
+const Cart = {
+  get: () => JSON.parse(localStorage.getItem('gowri_cart') || '[]'),
+  save: (items) => localStorage.setItem('gowri_cart', JSON.stringify(items)),
+  total: () => Cart.get().reduce((s, i) => s + i.price * i.qty, 0)
+};
+
+let selectedPayment = 'COD';
+
+function selectPayment(method) {
+  selectedPayment = method;
+  document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+  document.getElementById(`payOpt${method}`)?.classList.add('selected');
+}
+
+function showToast(icon, title, desc, type='success') {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type !== 'success' ? type : ''}`;
+  t.innerHTML = `<span class="toast-icon">${icon}</span><div class="toast-text"><div class="toast-title">${title}</div>${desc?`<div class="toast-desc">${desc}</div>`:''}</div>`;
+  c.appendChild(t); setTimeout(() => t.remove(), 3500);
+}
+
+function renderCheckoutSummary() {
+  const items = Cart.get();
+  const subtotal = Cart.total();
+  const shipping = subtotal >= 500 ? 0 : 60;
+  const total = subtotal + shipping;
+
+  document.getElementById('checkoutProducts').innerHTML = items.map(i => `
+    <div class="checkout-product">
+      <img src="${i.image}" alt="${i.name}" onerror="this.src='/images/mango_pickle.png'">
+      <div class="checkout-product-name">${i.name}<div class="checkout-product-qty">Qty: ${i.qty}</div></div>
+      <span class="checkout-product-price">₹${(i.price * i.qty).toFixed(0)}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('sumSubtotal').textContent = `₹${subtotal.toFixed(0)}`;
+  document.getElementById('sumShipping').textContent = shipping === 0 ? '🎉 FREE' : `₹${shipping}`;
+  document.getElementById('sumTotal').textContent = `₹${total.toFixed(0)}`;
+}
+
+async function placeOrder(e) {
+  e.preventDefault();
+  const items = Cart.get();
+  if (items.length === 0) { showToast('⚠️', 'Cart is empty', 'Add some pickles first!', 'warning'); return; }
+
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName  = document.getElementById('lastName').value.trim();
+  const email     = document.getElementById('email').value.trim();
+  const phone     = document.getElementById('phone').value.trim();
+  const address   = document.getElementById('address').value.trim();
+  const city      = document.getElementById('city').value.trim();
+  const state     = document.getElementById('state').value;
+  const pincode   = document.getElementById('pincode').value.trim();
+  const notes     = document.getElementById('orderNotes').value.trim();
+
+  if (!state) { showToast('❌', 'Select State', 'Please select your state.', 'error'); return; }
+
+  const subtotal = Cart.total();
+  const shipping = subtotal >= 500 ? 0 : 60;
+  const total = subtotal + shipping;
+
+  const overlay = document.getElementById('loadingOverlay');
+  overlay.style.display = 'flex';
+  document.getElementById('placeOrderBtn').disabled = true;
+
+  try {
+    const res = await fetch('/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customer_name: `${firstName} ${lastName}`,
+        customer_email: email,
+        customer_phone: phone,
+        address, city, state, pincode,
+        items, subtotal, shipping, total,
+        payment_method: selectedPayment,
+        notes
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      localStorage.removeItem('gowri_cart');
+      localStorage.setItem('gowri_last_order', JSON.stringify({ order_number: data.order_number, name: `${firstName} ${lastName}`, total, payment: selectedPayment, city }));
+      window.location.href = '/order-success';
+    } else throw new Error('Order failed');
+  } catch {
+    overlay.style.display = 'none';
+    document.getElementById('placeOrderBtn').disabled = false;
+    showToast('❌', 'Order Failed', 'Please try again or contact us.', 'error');
+  }
+}
+
+const items = Cart.get();
+if (items.length === 0) window.location.href = '/cart';
+renderCheckoutSummary();
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart – Gowri Pickles</title>
+  <meta name="description" content="Review your Gowri Pickles order before checkout. Authentic Indian pickles delivered to your door.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo.png" alt="Gowri Pickles" width="48" height="48">
+      <div class="nav-logo-text">
+        <span class="brand-name">Gowri Pickles</span>
+        <span class="brand-tagline">Pure • Traditional • Authentic</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/#products">Products</a>
+      <a href="/#about">About Us</a>
+    </div>
+    <div class="nav-actions">
+      <a href="/cart" class="cart-icon-btn" id="cartIconBtn" aria-label="Cart">
+        🛒 Cart <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="container">
+    <h1>🛒 Your Cart</h1>
+    <p>Review your items and proceed to checkout</p>
+    <div class="breadcrumb">
+      <a href="/">Home</a> → <span>Cart</span>
+    </div>
+  </div>
+</div>
+
+<div class="cart-page">
+  <div class="container">
+    <div id="cartContent"></div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<a href="https://wa.me/919876543210" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const Cart = {
+  get: () => JSON.parse(localStorage.getItem('gowri_cart') || '[]'),
+  save: (items) => localStorage.setItem('gowri_cart', JSON.stringify(items)),
+  count: () => Cart.get().reduce((s, i) => s + i.qty, 0),
+  total: () => Cart.get().reduce((s, i) => s + i.price * i.qty, 0)
+};
+
+function showToast(icon, title, desc, type = 'success') {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type !== 'success' ? type : ''}`;
+  t.innerHTML = `<span class="toast-icon">${icon}</span><div class="toast-text"><div class="toast-title">${title}</div>${desc ? `<div class="toast-desc">${desc}</div>` : ''}</div>`;
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+
+function updateCartBadge() {
+  const c = Cart.count();
+  const badge = document.getElementById('cartBadge');
+  if (badge) { badge.textContent = c; badge.style.display = c > 0 ? 'flex' : 'none'; }
+}
+
+function updateQty(id, delta) {
+  const items = Cart.get();
+  const idx = items.findIndex(i => i.id === id);
+  if (idx === -1) return;
+  items[idx].qty = Math.max(1, items[idx].qty + delta);
+  Cart.save(items);
+  renderCart();
+}
+
+function removeItem(id) {
+  let items = Cart.get().filter(i => i.id !== id);
+  Cart.save(items);
+  renderCart();
+  showToast('🗑️', 'Removed', 'Item removed from cart.', 'warning');
+}
+
+function clearCart() {
+  localStorage.removeItem('gowri_cart');
+  renderCart();
+}
+
+function renderCart() {
+  const items = Cart.get();
+  updateCartBadge();
+  const container = document.getElementById('cartContent');
+  if (!container) return;
+
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state" style="padding:100px 20px; text-align:center">
+        <div class="empty-icon">🛒</div>
+        <h3>Your cart is empty!</h3>
+        <p>Looks like you haven't added any pickles yet.</p>
+        <a href="/" class="btn btn-primary btn-lg" style="margin-top:16px">🥫 Shop Now</a>
+      </div>`;
+    return;
+  }
+
+  const subtotal = Cart.total();
+  const shipping = subtotal >= 500 ? 0 : 60;
+  const total = subtotal + shipping;
+
+  container.innerHTML = `
+    <div class="cart-layout">
+      <div class="cart-items-section">
+        <div class="cart-items-header">
+          <h2>Cart Items (${items.length})</h2>
+          <button class="clear-cart-btn" onclick="clearCart()">Clear All</button>
+        </div>
+        ${items.map(item => `
+          <div class="cart-item" id="cart-item-${item.id}">
+            <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='/images/mango_pickle.png'">
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-meta">🌶️ ${item.spice_level || 'Medium'} • ⚖️ ${item.weight || '250g'}</div>
+              <div class="cart-item-controls">
+                <button class="qty-btn" onclick="updateQty(${item.id}, -1)" aria-label="Decrease quantity">−</button>
+                <span class="qty-display">${item.qty}</span>
+                <button class="qty-btn" onclick="updateQty(${item.id}, 1)" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="cart-item-price">₹${(item.price * item.qty).toFixed(0)}</span>
+              <button class="remove-item-btn" onclick="removeItem(${item.id})" aria-label="Remove ${item.name}">✕</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="summary-row"><span>Subtotal</span><span class="val">₹${subtotal.toFixed(0)}</span></div>
+        <div class="summary-row"><span>Shipping</span><span class="val ${shipping === 0 ? 'free' : ''}">${shipping === 0 ? '🎉 FREE' : '₹' + shipping}</span></div>
+        ${subtotal > 0 && subtotal < 500 ? `<div style="background:var(--cream-dark); border-radius:8px; padding:10px 14px; font-size:0.82rem; color:var(--text-muted); margin:4px 0">Add ₹${500 - subtotal} more for free shipping! 🚚</div>` : ''}
+        <div class="summary-row total"><span>Total</span><span>₹${total.toFixed(0)}</span></div>
+        <div class="promo-row">
+          <input class="promo-input" type="text" placeholder="Promo code" id="promoCode">
+          <button class="btn btn-secondary btn-sm" onclick="applyPromo()">Apply</button>
+        </div>
+        <a href="/checkout" class="btn btn-primary checkout-btn-main" id="checkoutBtn">Proceed to Checkout →</a>
+        <a href="/" style="display:block; text-align:center; margin-top:12px; color:var(--text-muted); font-size:0.85rem;">← Continue Shopping</a>
+        <div style="margin-top:20px; text-align:center; font-size:0.8rem; color:var(--text-muted);">
+          🔒 Secure Checkout &nbsp;|&nbsp; 🚚 Fast Delivery &nbsp;|&nbsp; ✅ 100% Authentic
+        </div>
+      </div>
+    </div>`;
+}
+
+function applyPromo() {
+  const code = document.getElementById('promoCode')?.value.toUpperCase();
+  if (code === 'GOWRI15') showToast('🎁', '15% Off Applied!', 'Promo code GOWRI15 applied successfully.', 'success');
+  else showToast('❌', 'Invalid Code', 'That promo code is not valid.', 'error');
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar')?.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+renderCart();
+</script>
+</body>
+</html>

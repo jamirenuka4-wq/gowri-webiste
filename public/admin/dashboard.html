@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard – Gowri Pickles</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body class="admin-body">
+
+<!-- ===== SIDEBAR ===== -->
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar" role="navigation" aria-label="Admin Navigation">
+    <div class="sidebar-header">
+      <img src="/images/logo.png" alt="Gowri Pickles" width="44" height="44">
+      <div>
+        <div class="brand-name">Gowri Pickles</div>
+        <div class="brand-sub">Admin Panel</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-title">Main</div>
+      <button class="sidebar-link active" onclick="showSection('dashboard')" id="navDashboard">
+        <span class="icon">📊</span> Dashboard
+      </button>
+      <button class="sidebar-link" onclick="showSection('products')" id="navProducts">
+        <span class="icon">🥫</span> Products
+      </button>
+      <button class="sidebar-link" onclick="showSection('orders')" id="navOrders">
+        <span class="icon">📦</span> Orders
+        <span class="badge" id="pendingBadge">0</span>
+      </button>
+      <div class="sidebar-section-title" style="margin-top:16px">Settings</div>
+      <a class="sidebar-link" href="/" target="_blank">
+        <span class="icon">🌐</span> View Store
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()" id="logoutBtn">
+        <span>🚪</span> Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="admin-main">
+    <!-- Top Bar -->
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <h2 id="topbarTitle">Dashboard</h2>
+        <p id="topbarSub">Welcome back, <span id="adminName">Admin</span>!</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="notif-btn" id="notifBtn" onclick="toggleNotifPanel()" aria-label="Notifications">
+          🔔
+          <span class="notif-count" id="notifCount" style="display:none">0</span>
+        </button>
+        <div class="admin-user">
+          <div class="avatar" id="adminAvatar">A</div>
+          <span id="adminUserName">Admin</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Panel -->
+    <div class="admin-notif-panel" id="notifPanel" role="region" aria-label="Notifications">
+      <div class="notif-panel-header">
+        <h4>🔔 Notifications</h4>
+        <button onclick="clearNotifs()" style="font-size:0.8rem;color:var(--text-muted);background:none;border:none;cursor:pointer">Clear All</button>
+      </div>
+      <div id="notifList"><div style="text-align:center;padding:30px;color:var(--text-muted);font-size:0.9rem">No notifications yet</div></div>
+    </div>
+
+    <!-- ===== ADMIN CONTENT ===== -->
+    <div class="admin-content">
+
+      <!-- DASHBOARD SECTION -->
+      <div id="section-dashboard">
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-card"><div class="stat-icon red">💰</div><div class="stat-info"><div class="stat-val" id="statRevenue">₹0</div><div class="stat-label">Total Revenue</div><div class="stat-change up" id="statRevChange">↑ Loading...</div></div></div>
+          <div class="stat-card"><div class="stat-icon yellow">📦</div><div class="stat-info"><div class="stat-val" id="statOrders">0</div><div class="stat-label">Total Orders</div><div class="stat-change up" id="statOrdChange">Loading...</div></div></div>
+          <div class="stat-card"><div class="stat-icon green">🥫</div><div class="stat-info"><div class="stat-val" id="statProducts">0</div><div class="stat-label">Products</div><div class="stat-change up">Active listings</div></div></div>
+          <div class="stat-card"><div class="stat-icon blue">⏳</div><div class="stat-info"><div class="stat-val" id="statPending">0</div><div class="stat-label">Pending Orders</div><div class="stat-change down" id="statPendChange">Needs attention</div></div></div>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <h3>📋 Recent Orders</h3>
+            <button class="btn btn-secondary btn-sm" onclick="showSection('orders')" id="viewAllOrdersBtn">View All</button>
+          </div>
+          <div id="recentOrdersTable"><div class="loading-spinner"><div class="spinner"></div></div></div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS SECTION -->
+      <div id="section-products" style="display:none">
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <h3>🥫 Products <span id="productCount" style="color:var(--text-muted);font-weight:400;font-size:0.9rem"></span></h3>
+            <div style="display:flex;gap:8px;">
+              <input type="text" id="productSearch" placeholder="🔍 Search products..." class="form-input" style="width:220px;padding:8px 14px" oninput="filterProductTable()" aria-label="Search products">
+              <button class="btn btn-primary btn-sm" onclick="openProductModal()" id="addProductBtn">+ Add Product</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table" id="productsTable">
+              <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Featured</th><th>Actions</th></tr></thead>
+              <tbody id="productsTableBody"><tr><td colspan="7" style="text-align:center;padding:40px"><div class="spinner" style="margin:0 auto"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDERS SECTION -->
+      <div id="section-orders" style="display:none">
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <h3>📦 Orders</h3>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <select id="orderStatusFilter" class="form-select" style="width:160px;padding:8px 12px;" onchange="loadOrders()">
+                <option value="All">All Status</option>
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+              <button class="btn btn-secondary btn-sm" onclick="exportOrders()" id="exportBtn">📥 Export CSV</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead><tr><th>Order #</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+              <tbody id="ordersTableBody"><tr><td colspan="8" style="text-align:center;padding:40px"><div class="spinner" style="margin:0 auto"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADD/EDIT PRODUCT MODAL ===== -->
+<div class="modal-overlay" id="productModal" style="display:none" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Add New Product</h3>
+      <button class="modal-close" onclick="closeProductModal()" aria-label="Close modal">✕</button>
+    </div>
+    <form id="productForm" onsubmit="saveProduct(event)" enctype="multipart/form-data">
+      <input type="hidden" id="editProductId">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="prodName">Product Name <span style="color:var(--red)">*</span></label>
+          <input type="text" id="prodName" class="form-input" placeholder="Andhra Mango Pickle" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="prodCategory">Category <span style="color:var(--red)">*</span></label>
+          <select id="prodCategory" class="form-select" required>
+            <option value="">Select Category</option>
+            <option>Mango</option><option>Lemon</option><option>Chilli</option><option>Mixed</option><option>Special</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="prodDesc">Description</label>
+        <textarea id="prodDesc" class="form-textarea" placeholder="Describe your product..." rows="3"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="prodPrice">Price (₹) <span style="color:var(--red)">*</span></label>
+          <input type="number" id="prodPrice" class="form-input" placeholder="149" min="1" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="prodOrigPrice">Original Price (₹)</label>
+          <input type="number" id="prodOrigPrice" class="form-input" placeholder="199" min="1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="prodWeight">Weight/Size</label>
+          <input type="text" id="prodWeight" class="form-input" placeholder="250g">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="prodSpice">Spice Level</label>
+          <select id="prodSpice" class="form-select">
+            <option>Mild</option><option>Medium</option><option>Hot</option><option>Extra Hot</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="prodIngredients">Ingredients (comma-separated)</label>
+        <input type="text" id="prodIngredients" class="form-input" placeholder="Raw Mango, Salt, Red Chilli, Sesame Oil">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="prodShelf">Shelf Life</label>
+          <input type="text" id="prodShelf" class="form-input" placeholder="12 months">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Product Image</label>
+        <div class="image-upload-area" id="uploadArea" onclick="document.getElementById('prodImage').click()">
+          <div class="upload-icon">📷</div>
+          <div style="font-weight:600;margin-bottom:4px">Click to upload image</div>
+          <div style="font-size:0.82rem;color:var(--text-muted)">JPG, PNG, WEBP – Max 5MB</div>
+          <input type="file" id="prodImage" name="image" accept="image/*" style="display:none" onchange="previewImage(this)">
+          <img id="imagePreview" class="image-preview" alt="Preview">
+        </div>
+        <div class="form-group" style="margin-top:10px;margin-bottom:0">
+          <label class="form-label" for="prodImageUrl">Or paste image URL</label>
+          <input type="url" id="prodImageUrl" class="form-input" placeholder="https://...">
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;align-items:center;margin-bottom:16px">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input type="checkbox" id="prodFeatured" style="accent-color:var(--red);width:16px;height:16px">
+          <span class="form-label" style="margin:0">⭐ Featured Product</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input type="checkbox" id="prodInStock" checked style="accent-color:var(--green);width:16px;height:16px">
+          <span class="form-label" style="margin:0">✅ In Stock</span>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="saveProductBtn">💾 Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== ORDER DETAIL MODAL ===== -->
+<div class="modal-overlay" id="orderModal" style="display:none" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>📦 Order Details</h3>
+      <button class="modal-close" onclick="document.getElementById('orderModal').style.display='none'" aria-label="Close">✕</button>
+    </div>
+    <div id="orderModalContent"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Socket.IO -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+// ===== Auth Check =====
+const token = localStorage.getItem('admin_token');
+if (!token) window.location.href = '/admin';
+const adminUsername = localStorage.getItem('admin_username') || 'Admin';
+document.getElementById('adminName').textContent = adminUsername;
+document.getElementById('adminUserName').textContent = adminUsername;
+document.getElementById('adminAvatar').textContent = adminUsername[0].toUpperCase();
+
+function logout() {
+  localStorage.removeItem('admin_token'); localStorage.removeItem('admin_username');
+  window.location.href = '/admin';
+}
+
+function authHeaders() { return { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }; }
+
+// ===== Toast =====
+function showToast(icon, title, desc, type='success') {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type !== 'success' ? type : ''}`;
+  t.innerHTML = `<span class="toast-icon">${icon}</span><div class="toast-text"><div class="toast-title">${title}</div>${desc?`<div class="toast-desc">${desc}</div>`:''}</div>`;
+  c.appendChild(t); setTimeout(() => t.remove(), 4000);
+}
+
+// ===== Socket.IO - Real-time Notifications =====
+const socket = io();
+socket.emit('join-admin');
+
+let notifications = [];
+let unreadCount = 0;
+
+socket.on('new-order', (order) => {
+  const notif = {
+    id: Date.now(),
+    type: 'new-order',
+    title: '🛒 New Order Received!',
+    desc: `${order.customer_name} ordered ${order.items_count} item(s) – ₹${order.total}`,
+    order_number: order.order_number,
+    time: new Date().toLocaleTimeString('en-IN'),
+    unread: true
+  };
+  notifications.unshift(notif);
+  unreadCount++;
+  updateNotifUI();
+
+  // Big toast notification
+  showToast('🛒', `New Order: ${order.order_number}`, `${order.customer_name} – ₹${order.total}`, 'success');
+
+  // Browser notification
+  if (Notification.permission === 'granted') {
+    new Notification('Gowri Pickles - New Order! 🛒', {
+      body: `${order.customer_name} placed an order for ₹${order.total}`,
+      icon: '/images/logo.png'
+    });
+  }
+
+  // Refresh dashboard if visible
+  if (!document.getElementById('section-dashboard').hidden) loadDashboard();
+  loadOrders();
+  updatePendingBadge();
+});
+
+socket.on('order-updated', (data) => {
+  showToast('📦', `Order ${data.order_number} Updated`, `Status: ${data.status}`, 'warning');
+  if (!document.getElementById('section-dashboard').hidden) loadDashboard();
+});
+
+function updateNotifUI() {
+  const badge = document.getElementById('notifCount');
+  badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+  badge.textContent = unreadCount;
+  renderNotifList();
+}
+
+function renderNotifList() {
+  const list = document.getElementById('notifList');
+  if (notifications.length === 0) { list.innerHTML = `<div style="text-align:center;padding:30px;color:var(--text-muted);font-size:0.9rem">No notifications yet</div>`; return; }
+  list.innerHTML = notifications.map(n => `
+    <div class="notif-item ${n.unread ? 'unread' : ''}" onclick="markRead(${n.id})">
+      <span class="notif-icon">${n.type === 'new-order' ? '🛒' : '📦'}</span>
+      <div class="notif-text">
+        <div class="notif-title">${n.title}</div>
+        <div class="notif-desc">${n.desc}</div>
+      </div>
+      <span class="notif-time">${n.time}</span>
+    </div>`).join('');
+}
+
+function markRead(id) {
+  const n = notifications.find(n => n.id === id);
+  if (n?.unread) { n.unread = false; unreadCount = Math.max(0, unreadCount - 1); updateNotifUI(); }
+}
+
+function clearNotifs() { notifications = []; unreadCount = 0; updateNotifUI(); }
+
+function toggleNotifPanel() {
+  const panel = document.getElementById('notifPanel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) { unreadCount = 0; notifications.forEach(n => n.unread = false); updateNotifUI(); }
+}
+
+// Request notification permission
+if ('Notification' in window) Notification.requestPermission();
+
+// Close notif panel on outside click
+document.addEventListener('click', e => {
+  if (!e.target.closest('#notifPanel') && !e.target.closest('#notifBtn')) {
+    document.getElementById('notifPanel').classList.remove('open');
+  }
+});
+
+// ===== Navigation =====
+function showSection(name) {
+  ['dashboard','products','orders'].forEach(s => {
+    document.getElementById(`section-${s}`).style.display = s === name ? 'block' : 'none';
+    document.getElementById(`nav${s.charAt(0).toUpperCase()+s.slice(1)}`).classList.toggle('active', s === name);
+  });
+  document.getElementById('topbarTitle').textContent = { dashboard:'Dashboard', products:'Products', orders:'Orders' }[name];
+  document.getElementById('topbarSub').textContent = { dashboard:'Overview of your store', products:'Manage your pickle catalog', orders:'Customer orders' }[name];
+  if (name === 'products') loadProducts();
+  if (name === 'orders') loadOrders();
+  if (name === 'dashboard') loadDashboard();
+}
+
+// ===== Dashboard =====
+async function loadDashboard() {
+  try {
+    const res = await fetch('/api/admin/stats', { headers: authHeaders() });
+    if (res.status === 401) { logout(); return; }
+    const data = await res.json();
+    document.getElementById('statRevenue').textContent = `₹${data.totalRevenue.toFixed(0)}`;
+    document.getElementById('statOrders').textContent = data.totalOrders;
+    document.getElementById('statProducts').textContent = data.totalProducts;
+    document.getElementById('statPending').textContent = data.pendingOrders;
+    document.getElementById('pendingBadge').textContent = data.pendingOrders;
+    document.getElementById('pendingBadge').style.display = data.pendingOrders > 0 ? 'inline' : 'none';
+
+    const tbody = document.getElementById('recentOrdersTable');
+    if (data.recentOrders.length === 0) {
+      tbody.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-muted)">No orders yet. Share your store! 🥫</div>`;
+      return;
+    }
+    tbody.innerHTML = `<table class="admin-table"><thead><tr><th>Order #</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th><th>Action</th></tr></thead><tbody>
+      ${data.recentOrders.map(o => `
+        <tr>
+          <td><strong>${o.order_number}</strong></td>
+          <td>${o.customer_name}</td>
+          <td>₹${o.total}</td>
+          <td><span class="status-badge status-${o.status.toLowerCase()}">${o.status}</span></td>
+          <td>${new Date(o.created_at).toLocaleDateString('en-IN')}</td>
+          <td><button class="action-btn view" onclick="viewOrder(${o.id})">View</button></td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  } catch(err) { console.error('Stats error:', err); }
+}
+
+async function updatePendingBadge() {
+  try {
+    const res = await fetch('/api/admin/stats', { headers: authHeaders() });
+    const data = await res.json();
+    const badge = document.getElementById('pendingBadge');
+    badge.textContent = data.pendingOrders;
+    badge.style.display = data.pendingOrders > 0 ? 'inline' : 'none';
+  } catch {}
+}
+
+// ===== Products =====
+let allProductsAdmin = [];
+
+async function loadProducts() {
+  const res = await fetch('/api/products', { headers: authHeaders() });
+  allProductsAdmin = await res.json();
+  document.getElementById('productCount').textContent = `(${allProductsAdmin.length} items)`;
+  renderProductTable(allProductsAdmin);
+}
+
+function filterProductTable() {
+  const q = document.getElementById('productSearch').value.toLowerCase();
+  const filtered = allProductsAdmin.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+  renderProductTable(filtered);
+}
+
+function renderProductTable(products) {
+  const tbody = document.getElementById('productsTableBody');
+  if (products.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted)">No products found.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = products.map(p => `
+    <tr>
+      <td><img src="${p.image}" alt="${p.name}" class="product-thumb" onerror="this.src='/images/mango_pickle.png'"></td>
+      <td><strong>${p.name}</strong><div style="font-size:0.8rem;color:var(--text-muted)">${(p.description||'').substring(0,60)}...</div></td>
+      <td>${p.category}</td>
+      <td>₹${p.price}${p.original_price ? `<div style="font-size:0.8rem;color:var(--text-muted);text-decoration:line-through">₹${p.original_price}</div>` : ''}</td>
+      <td><span style="color:${p.in_stock ? 'var(--green)' : 'var(--red)'}; font-weight:600">${p.in_stock ? '✅ In Stock' : '❌ Out'}</span></td>
+      <td>${p.featured ? '⭐ Yes' : '–'}</td>
+      <td class="action-btns">
+        <button class="action-btn edit" onclick="openProductModal(${p.id})" id="editBtn-${p.id}">✏️ Edit</button>
+        <button class="action-btn delete" onclick="deleteProduct(${p.id}, '${p.name}')" id="deleteBtn-${p.id}">🗑️ Delete</button>
+      </td>
+    </tr>`).join('');
+}
+
+function openProductModal(productId = null) {
+  const modal = document.getElementById('productModal');
+  document.getElementById('productForm').reset();
+  document.getElementById('imagePreview').style.display = 'none';
+  document.getElementById('editProductId').value = '';
+
+  if (productId) {
+    const p = allProductsAdmin.find(x => x.id === productId);
+    if (!p) return;
+    document.getElementById('modalTitle').textContent = '✏️ Edit Product';
+    document.getElementById('editProductId').value = p.id;
+    document.getElementById('prodName').value = p.name;
+    document.getElementById('prodCategory').value = p.category;
+    document.getElementById('prodDesc').value = p.description || '';
+    document.getElementById('prodPrice').value = p.price;
+    document.getElementById('prodOrigPrice').value = p.original_price || '';
+    document.getElementById('prodWeight').value = p.weight || '';
+    document.getElementById('prodSpice').value = p.spice_level || 'Medium';
+    document.getElementById('prodIngredients').value = p.ingredients || '';
+    document.getElementById('prodShelf').value = p.shelf_life || '';
+    document.getElementById('prodFeatured').checked = !!p.featured;
+    document.getElementById('prodInStock').checked = !!p.in_stock;
+    document.getElementById('prodImageUrl').value = p.image || '';
+    if (p.image) { const img = document.getElementById('imagePreview'); img.src = p.image; img.style.display = 'block'; }
+  } else {
+    document.getElementById('modalTitle').textContent = '+ Add New Product';
+  }
+  modal.style.display = 'flex';
+}
+
+function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
+
+function previewImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = document.getElementById('imagePreview');
+    img.src = e.target.result; img.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function saveProduct(e) {
+  e.preventDefault();
+  const btn = document.getElementById('saveProductBtn');
+  btn.textContent = '⏳ Saving...'; btn.disabled = true;
+
+  const editId = document.getElementById('editProductId').value;
+  const formData = new FormData();
+  formData.append('name', document.getElementById('prodName').value);
+  formData.append('description', document.getElementById('prodDesc').value);
+  formData.append('price', document.getElementById('prodPrice').value);
+  formData.append('original_price', document.getElementById('prodOrigPrice').value || '');
+  formData.append('category', document.getElementById('prodCategory').value);
+  formData.append('weight', document.getElementById('prodWeight').value);
+  formData.append('spice_level', document.getElementById('prodSpice').value);
+  formData.append('ingredients', document.getElementById('prodIngredients').value);
+  formData.append('shelf_life', document.getElementById('prodShelf').value);
+  formData.append('featured', document.getElementById('prodFeatured').checked ? '1' : '0');
+  formData.append('in_stock', document.getElementById('prodInStock').checked ? '1' : '0');
+  formData.append('image_url', document.getElementById('prodImageUrl').value);
+
+  const imageFile = document.getElementById('prodImage').files[0];
+  if (imageFile) formData.append('image', imageFile);
+
+  try {
+    const url = editId ? `/api/admin/products/${editId}` : '/api/admin/products';
+    const method = editId ? 'PUT' : 'POST';
+    const res = await fetch(url, { method, headers: { 'Authorization': `Bearer ${token}` }, body: formData });
+    const data = await res.json();
+    if (data.success) {
+      showToast(editId ? '✏️' : '✅', editId ? 'Product Updated!' : 'Product Added!', data.product.name, 'success');
+      closeProductModal();
+      loadProducts();
+    } else throw new Error('Failed');
+  } catch {
+    showToast('❌', 'Save Failed', 'Please try again.', 'error');
+  } finally {
+    btn.textContent = '💾 Save Product'; btn.disabled = false;
+  }
+}
+
+async function deleteProduct(id, name) {
+  if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+  try {
+    const res = await fetch(`/api/admin/products/${id}`, { method: 'DELETE', headers: authHeaders() });
+    const data = await res.json();
+    if (data.success) { showToast('🗑️', 'Deleted', name, 'warning'); loadProducts(); }
+  } catch { showToast('❌', 'Delete Failed', '', 'error'); }
+}
+
+// ===== Orders =====
+async function loadOrders() {
+  const status = document.getElementById('orderStatusFilter')?.value || 'All';
+  const params = status !== 'All' ? `?status=${status}` : '';
+  try {
+    const res = await fetch(`/api/admin/orders${params}`, { headers: authHeaders() });
+    if (res.status === 401) { logout(); return; }
+    const orders = await res.json();
+    const tbody = document.getElementById('ordersTableBody');
+    if (orders.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted)">No orders found.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = orders.map(o => {
+      const items = JSON.parse(o.items || '[]');
+      return `
+        <tr>
+          <td><strong style="color:var(--red)">${o.order_number}</strong></td>
+          <td><div style="font-weight:600">${o.customer_name}</div><div style="font-size:0.8rem;color:var(--text-muted)">${o.customer_phone}</div></td>
+          <td>${items.length} item(s)</td>
+          <td><strong>₹${o.total}</strong><div style="font-size:0.8rem;color:var(--text-muted)">${o.payment_method}</div></td>
+          <td>${o.payment_method}</td>
+          <td>
+            <select class="form-select" style="padding:5px 8px;border-radius:8px;font-size:0.82rem" onchange="updateOrderStatus(${o.id}, this.value, '${o.order_number}')">
+              ${['Pending','Processing','Shipped','Delivered','Cancelled'].map(s => `<option ${s===o.status?'selected':''}>${s}</option>`).join('')}
+            </select>
+          </td>
+          <td style="font-size:0.82rem">${new Date(o.created_at).toLocaleDateString('en-IN')}</td>
+          <td><button class="action-btn view" onclick="viewOrder(${o.id})" id="viewOrderBtn-${o.id}">👁️ View</button></td>
+        </tr>`;
+    }).join('');
+  } catch(err) { console.error('Orders error:', err); }
+}
+
+async function updateOrderStatus(id, status, orderNum) {
+  try {
+    await fetch(`/api/admin/orders/${id}/status`, {
+      method: 'PUT',
+      headers: authHeaders(),
+      body: JSON.stringify({ status })
+    });
+    showToast('📦', `Order ${orderNum}`, `Status updated to ${status}`, 'success');
+    updatePendingBadge();
+  } catch { showToast('❌', 'Update Failed', '', 'error'); }
+}
+
+async function viewOrder(id) {
+  try {
+    const res = await fetch(`/api/admin/orders?limit=100`, { headers: authHeaders() });
+    const orders = await res.json();
+    const o = orders.find(x => x.id === id);
+    if (!o) return;
+    const items = JSON.parse(o.items || '[]');
+    document.getElementById('orderModalContent').innerHTML = `
+      <div style="display:grid;gap:16px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--cream-dark);border-radius:12px;padding:20px">
+          <div><div style="font-size:0.8rem;color:var(--text-muted)">Order Number</div><div style="font-weight:700;color:var(--red)">${o.order_number}</div></div>
+          <div><div style="font-size:0.8rem;color:var(--text-muted)">Date</div><div style="font-weight:600">${new Date(o.created_at).toLocaleString('en-IN')}</div></div>
+          <div><div style="font-size:0.8rem;color:var(--text-muted)">Status</div><span class="status-badge status-${o.status.toLowerCase()}">${o.status}</span></div>
+          <div><div style="font-size:0.8rem;color:var(--text-muted)">Payment</div><div style="font-weight:600">${o.payment_method}</div></div>
+        </div>
+        <div style="background:var(--cream-dark);border-radius:12px;padding:20px">
+          <div style="font-weight:700;margin-bottom:12px">👤 Customer Details</div>
+          <div style="font-size:0.9rem;line-height:2">
+            <strong>${o.customer_name}</strong><br>
+            📧 ${o.customer_email}<br>
+            📞 ${o.customer_phone}<br>
+            📍 ${o.address}, ${o.city}, ${o.state} – ${o.pincode}
+          </div>
+        </div>
+        <div style="background:var(--cream-dark);border-radius:12px;padding:20px">
+          <div style="font-weight:700;margin-bottom:12px">🥫 Items Ordered</div>
+          ${items.map(i => `
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div><div style="font-weight:600">${i.name}</div><div style="font-size:0.8rem;color:var(--text-muted)">Qty: ${i.qty}</div></div>
+              <div style="font-weight:700;color:var(--red)">₹${(i.price * i.qty).toFixed(0)}</div>
+            </div>`).join('')}
+          <div style="display:flex;justify-content:space-between;margin-top:12px;font-weight:700;font-size:1.1rem">
+            <span>Total</span><span style="color:var(--red)">₹${o.total}</span>
+          </div>
+        </div>
+        ${o.notes ? `<div style="background:#FFF8F0;border-radius:12px;padding:16px;border-left:4px solid var(--yellow)"><strong>📝 Notes:</strong> ${o.notes}</div>` : ''}
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          ${['Processing','Shipped','Delivered'].map(s => `<button class="btn btn-sm" style="background:var(--green);color:white" onclick="updateOrderStatus(${o.id},'${s}','${o.order_number}');document.getElementById('orderModal').style.display='none';loadOrders()">Mark ${s}</button>`).join('')}
+          <button class="btn btn-sm btn-secondary" onclick="document.getElementById('orderModal').style.display='none'">Close</button>
+        </div>
+      </div>`;
+    document.getElementById('orderModal').style.display = 'flex';
+  } catch(err) { console.error(err); }
+}
+
+function exportOrders() {
+  fetch('/api/admin/orders', { headers: authHeaders() })
+    .then(r => r.json())
+    .then(orders => {
+      const csv = ['Order #,Customer,Email,Phone,City,State,Total,Payment,Status,Date',
+        ...orders.map(o => `${o.order_number},${o.customer_name},${o.customer_email},${o.customer_phone},${o.city},${o.state},${o.total},${o.payment_method},${o.status},${o.created_at}`)
+      ].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `gowri-pickles-orders-${Date.now()}.csv`;
+      a.click();
+      showToast('📥', 'Exported!', 'Orders CSV downloaded.', 'success');
+    });
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.style.display = 'none'; });
+});
+
+// ===== Init =====
+loadDashboard();
+</script>
+</body>
+</html>
