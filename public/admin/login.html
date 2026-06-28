@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/css/animations.css">
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="icon" type="image/png" href="/images/logo.png">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body class="admin-body">
 <div class="admin-login-page">
@@ -27,14 +28,14 @@
         <label class="form-label" for="adminPass">Password</label>
         <div style="position:relative">
           <input type="password" id="adminPass" class="form-input" placeholder="••••••••" required autocomplete="current-password" style="padding-right:48px">
-          <button type="button" onclick="togglePass()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--text-muted)" aria-label="Toggle password visibility">👁️</button>
+          <button type="button" onclick="togglePass()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted)" aria-label="Toggle password visibility"><i data-lucide="eye" style="width:18px;height:18px;"></i></button>
         </div>
       </div>
       <div id="loginError" style="display:none; color:var(--red); font-size:0.85rem; text-align:center; margin-bottom:12px; padding:10px; background:#FDEDEC; border-radius:8px;">
-        ❌ Invalid credentials. Please try again.
+        Invalid credentials. Please try again.
       </div>
       <button type="submit" class="btn btn-primary login-btn" id="loginBtn">
-        🔐 Login to Dashboard
+        Login to Dashboard
       </button>
     </form>
     <p style="text-align:center; margin-top:20px; font-size:0.8rem; color:var(--text-muted);">
@@ -57,7 +58,7 @@ async function doLogin(e) {
   e.preventDefault();
   const btn = document.getElementById('loginBtn');
   const err = document.getElementById('loginError');
-  btn.textContent = '⏳ Logging in...';
+  btn.textContent = 'Logging in...';
   btn.disabled = true;
   err.style.display = 'none';
 
@@ -77,18 +78,19 @@ async function doLogin(e) {
       window.location.href = '/admin/dashboard';
     } else {
       err.style.display = 'block';
-      btn.textContent = '🔐 Login to Dashboard';
+      btn.textContent = 'Login to Dashboard';
       btn.disabled = false;
       document.getElementById('adminPass').style.animation = 'shake 0.4s ease';
       setTimeout(() => document.getElementById('adminPass').style.animation = '', 400);
     }
   } catch {
     err.style.display = 'block';
-    err.textContent = '❌ Server error. Please try again.';
-    btn.textContent = '🔐 Login to Dashboard';
+    err.textContent = 'Server error. Please try again.';
+    btn.textContent = 'Login to Dashboard';
     btn.disabled = false;
   }
 }
+if (window.lucide) lucide.createIcons();
 </script>
 </body>
 </html>

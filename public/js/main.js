@@ -18,7 +18,7 @@ const Cart = {
     else { items.push({ ...product, qty }); }
     Cart.save(items);
     updateCartBadge();
-    showToast('✅', 'Added to Cart!', product.name + ' added successfully.', 'success');
+    showToast('&#10003;', 'Added to Cart!', product.name + ' added successfully.', 'success');
   }
 };
 
@@ -161,8 +161,8 @@ function createProductCard(p, i = 0) {
   const starsHtml = '★'.repeat(starsFull) + '☆'.repeat(5 - starsFull);
 
   let badgeHtml = '';
-  if (p.featured) badgeHtml = '<span class="card-badge badge-bestseller">⭐ Bestseller</span>';
-  else if (discount >= 20) badgeHtml = '<span class="card-badge badge-sale">🏷️ ' + discount + '% OFF</span>';
+  if (p.featured) badgeHtml = '<span class="card-badge badge-bestseller">&#9733; Bestseller</span>';
+  else if (discount >= 20) badgeHtml = '<span class="card-badge badge-sale">' + discount + '% OFF</span>';
 
   return `
     <article class="product-card ${p.featured ? 'featured' : ''} reveal"
@@ -175,10 +175,10 @@ function createProductCard(p, i = 0) {
                onerror="this.src='/images/mango_pickle.png'">
         </a>
         ${badgeHtml}
-        <button class="card-wishlist" onclick="toggleWishlist(${p.id}, this)" aria-label="Add to wishlist" title="Wishlist">🤍</button>
+        <button class="card-wishlist" onclick="toggleWishlist(${p.id}, this)" aria-label="Add to wishlist" title="Wishlist">&#9825;</button>
         <div class="card-overlay">
-          <a href="/product/${p.id}" class="btn btn-sm" style="background:white;color:var(--text-dark);flex:1;justify-content:center;">👁️ Quick View</a>
-          <button class="btn btn-sm btn-primary" onclick="addToCartQuick(${p.id})" style="flex:1;justify-content:center;" id="quickAtc-${p.id}">🛒 Add</button>
+          <a href="/product/${p.id}" class="btn btn-sm" style="background:white;color:var(--text-dark);flex:1;justify-content:center;">Quick View</a>
+          <button class="btn btn-sm btn-primary" onclick="addToCartQuick(${p.id})" style="flex:1;justify-content:center;" id="quickAtc-${p.id}">Add to Cart</button>
         </div>
       </div>
       <div class="product-card-body">
@@ -193,8 +193,8 @@ function createProductCard(p, i = 0) {
           <span class="rating-count">${p.rating} (${p.reviews_count || 0})</span>
         </div>
         <div class="product-meta">
-          <span class="meta-item">⚖️ ${p.weight || '250g'}</span>
-          <span class="meta-item">🌶️ ${p.spice_level || 'Medium'}</span>
+          <span class="meta-item">${p.weight || '250g'}</span>
+          <span class="meta-item">${p.spice_level || 'Medium'}</span>
         </div>
         <div class="product-price-row">
           <div class="price-info">
@@ -239,9 +239,9 @@ function addToCartQuick(productId) {
 }
 
 function toggleWishlist(id, btn) {
-  const isAdded = btn.textContent === '❤️';
-  btn.textContent = isAdded ? '🤍' : '❤️';
-  showToast(isAdded ? '🤍' : '❤️', isAdded ? 'Removed from Wishlist' : 'Added to Wishlist!', '', 'warning');
+  const isAdded = btn.innerHTML === '&#9829;';
+  btn.innerHTML = isAdded ? '&#9825;' : '&#9829;';
+  showToast('', isAdded ? 'Removed from Wishlist' : 'Added to Wishlist!', '', 'warning');
 }
 
 // ===== Load More =====
@@ -280,12 +280,8 @@ function filterAndRender() {
   }
   if (searchTerm) {
     const q = searchTerm.toLowerCase();
-    filtered = filtered.filter(p =>
-      p.name.toLowerCase().includes(q) ||
-      (p.description || '').toLowerCase().includes(q) ||
-      p.category.toLowerCase().includes(q) ||
-      (p.ingredients || '').toLowerCase().includes(q)
-    );
+    // Search by product name only
+    filtered = filtered.filter(p => p.name.toLowerCase().includes(q));
   }
   renderProducts(filtered);
 }
@@ -317,6 +313,7 @@ searchInput?.addEventListener('keydown', (e) => {
 function showSearchSuggestions() {
   if (!searchSuggestions) return;
   const q = searchTerm.toLowerCase();
+  // Show only products matching by name
   const matches = allProducts.filter(p => p.name.toLowerCase().includes(q)).slice(0, 6);
   if (matches.length === 0) { searchSuggestions.classList.remove('visible'); return; }
   searchSuggestions.innerHTML = matches.map(p => `
@@ -324,7 +321,7 @@ function showSearchSuggestions() {
       <img src="${p.image}" alt="${p.name}" onerror="this.src='/images/mango_pickle.png'">
       <div>
         <div style="font-weight:600;font-size:0.9rem;color:var(--text-dark)">${p.name}</div>
-        <div style="font-size:0.78rem;color:var(--text-muted)">₹${p.price} • ${p.category}</div>
+        <div style="font-size:0.78rem;color:var(--text-muted)">₹${p.price} &bull; ${p.category} Pickle</div>
       </div>
       <div style="margin-left:auto;font-weight:700;color:var(--red);font-size:0.9rem;">₹${p.price}</div>
     </div>
@@ -369,14 +366,14 @@ function loadReviews() {
           <div class="review-avatar" aria-hidden="true" style="background:var(--grad-hero)">${initials}</div>
           <div style="flex:1">
             <div class="reviewer-name" itemprop="author">${r.name}</div>
-            <div class="review-date">📍 ${r.city} · ${r.date}</div>
+            <div class="review-date">${r.city} &middot; ${r.date}</div>
           </div>
           <div class="stars" aria-label="${r.rating} out of 5 stars">${stars}</div>
         </div>
         <p class="review-text" itemprop="reviewBody">"${r.comment}"</p>
-        <div class="review-product">📦 Ordered: <strong>${r.product}</strong></div>
+        <div class="review-product">Ordered: <strong>${r.product}</strong></div>
         <div style="margin-top:10px;display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text-muted);">
-          <span style="color:var(--green);font-weight:600;">✓ Verified Purchase</span>
+          <span style="color:var(--green);font-weight:600;">&#10003; Verified Purchase</span>
         </div>
       </article>
     `;
@@ -390,13 +387,13 @@ function subscribeNewsletter(e) {
   const email = document.getElementById('newsletterEmail')?.value;
   const btn = document.getElementById('subscribeBtn');
   if (!email) return;
-  btn.textContent = '✅ Subscribed!';
+  btn.textContent = 'Subscribed!';
   btn.style.background = 'var(--green)';
   btn.style.color = 'white';
   btn.disabled = true;
-  showToast('🎉', 'Welcome to Gowri Pickles!', 'Your 15% discount code: WELCOME15', 'success');
+  showToast('', 'Welcome to Gowri Pickles!', 'Your 15% discount code: WELCOME15', 'success');
   setTimeout(() => {
-    btn.textContent = '🎁 Subscribe Free!';
+    btn.textContent = 'Subscribe Free!';
     btn.style.background = '';
     btn.style.color = '';
     btn.disabled = false;
