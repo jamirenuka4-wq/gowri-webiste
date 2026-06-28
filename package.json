@@ -1,13 +1,18 @@
 {
-  "name": "gowri-pickles",
-  "version": "1.0.0",
-  "description": "Gowri Pickles – Authentic Indian Pickle E-Commerce Website",
-  "main": "server.js",
+  "name": "gowri-next",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "keywords": ["pickles", "indian", "ecommerce", "gowri"],
-  "author": "Gowri Pickles",
-  "license": "ISC"
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.11.1",
+    "jsonwebtoken": "^9.0.3",
+    "next": "16.2.9",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  }
 }

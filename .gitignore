@@ -1,7 +1,14 @@
 node_modules/
-.DS_Store
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+.next/
+# Runtime database files (generated at runtime, not seed)
+gowri_pickles.db
+gowri_pickles.db-shm
+gowri_pickles.db-wal
+*.db-shm
+*.db-wal
+# seed.db must be committed so Vercel can copy it to /tmp on cold start
 .env
+.env.local
+.env.production
+uploads/
+*.log

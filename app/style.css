@@ -13,7 +13,7 @@
   --yellow:      #F39C12;
   --yellow-dark: #D68910;
   --yellow-light:#F7DC6F;
-  --gold:        #E67E22;
+  --gold:        #D35400;
   --green:       #27AE60;
   --green-dark:  #1E8449;
   --green-light: #52BE80;
@@ -29,7 +29,7 @@
   --shadow-color: rgba(44, 24, 16, 0.12);
 
   /* Gradients */
-  --grad-hero:   linear-gradient(135deg, #C0392B 0%, #E67E22 50%, #F39C12 100%);
+  --grad-hero:   linear-gradient(135deg, #C0392B 0%, #D35400 50%, #F39C12 100%);
   --grad-card:   linear-gradient(145deg, #FFFFFF 0%, #FFFBF0 100%);
   --grad-green:  linear-gradient(135deg, #1E8449 0%, #27AE60 100%);
   --grad-gold:   linear-gradient(135deg, #D68910 0%, #F39C12 100%);
@@ -1917,4 +1917,5 @@ h1, h2, h3, h4, h5, h6 {
 .admin-login-logo h1 { font-size: 1.8rem; margin: 12px 0 4px; }
 .admin-login-logo p { color: var(--text-muted); font-size: 0.9rem; }
 .login-btn { width: 100%; justify-content: center; padding: 16px; font-size: 1rem; }
+
 
